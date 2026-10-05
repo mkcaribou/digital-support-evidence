@@ -1,0 +1,324 @@
+<title>Digital support for small businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&family=Public+Sans:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: Caribou flat style. Light ground, white figure panels with hairline rules, Crimson Text titles at regular weight, Public Sans for everything else, data viz palette for negative, neutral and positive. */
+:root{
+  --ground:#F7F7F7; --panel:#FFFFFF; --panel2:#F0EFEE; --ink:#4A334E; --ink2:#604D64; --ink3:#6F6074; --rule:#DDD9DE; --focus:#9278DD;
+  --neg:#FF5533; --neg-line:#C2391F; --neg-text:#BA3F27;
+  --nil:#DDDBD9; --nil-line:#A39E99; --nil-text:#6F6074;
+  --pos:#6DC695; --pos-line:#287F66; --pos-text:#287F66;
+  --tip-bg:#FFFFFF; --tip-shadow:0 6px 24px rgba(51,26,56,.14);
+  --serif:"Crimson Text", Georgia, "Times New Roman", serif;
+  --sans:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#1C161E; --panel:#25202A; --panel2:#2F2935; --ink:#F0EBF1; --ink2:#C9BFCC; --ink3:#948A98; --rule:#3B3441; --focus:#BC9BCE;
+  --neg:#FF5533; --neg-line:#FF8B6F; --neg-text:#FF8B6F;
+  --nil:#5A5360; --nil-line:#8A8190; --nil-text:#B3A9B6;
+  --pos:#6DC695; --pos-line:#A6E0BF; --pos-text:#6DC695;
+  --tip-bg:#2F2935; --tip-shadow:0 6px 24px rgba(0,0,0,.45); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --ground:#1C161E; --panel:#25202A; --panel2:#2F2935; --ink:#F0EBF1; --ink2:#C9BFCC; --ink3:#948A98; --rule:#3B3441; --focus:#BC9BCE;
+  --neg:#FF5533; --neg-line:#FF8B6F; --neg-text:#FF8B6F;
+  --nil:#5A5360; --nil-line:#8A8190; --nil-text:#B3A9B6;
+  --pos:#6DC695; --pos-line:#A6E0BF; --pos-text:#6DC695;
+  --tip-bg:#2F2935; --tip-shadow:0 6px 24px rgba(0,0,0,.45); color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--ground); color:var(--ink); font-family:var(--sans); font-weight:400; font-size:15px; line-height:1.6; margin:0}
+.wrap{max-width:860px; margin:0 auto; padding-inline:20px; padding-block:48px 72px; display:flex; flex-direction:column; gap:64px}
+header{display:flex; flex-direction:column; gap:16px}
+.eyebrow{font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink3); font-weight:500}
+h1{font-family:var(--serif); font-weight:400; font-size:clamp(32px,5.2vw,46px); line-height:1.08; margin:0; text-wrap:balance; color:var(--ink)}
+h2.title{font-family:var(--serif); font-weight:400; font-size:clamp(25px,3.8vw,32px); line-height:1.15; margin:0; text-wrap:balance; color:var(--ink)}
+h2.title .p{color:var(--pos-text)} h2.title .n{color:var(--neg-text)} h2.title .z{color:var(--nil-text)}
+h2.plain{font-family:var(--sans); font-weight:500; font-size:18px; color:var(--ink); margin:0; text-wrap:balance}
+p{margin:0; max-width:66ch}
+.lede{font-size:16.5px; font-weight:300; color:var(--ink)}
+.lede b{font-weight:500}
+section{display:flex; flex-direction:column; gap:18px}
+.sub{color:var(--ink2); font-size:15px; max-width:64ch; font-weight:300}
+.sub .p{color:var(--pos-text); font-weight:500} .sub .n{color:var(--neg-text); font-weight:500} .sub .z{color:var(--nil-text); font-weight:500}
+.figure{background:var(--panel); border:1px solid var(--rule); border-radius:4px; padding:22px 24px 18px; display:flex; flex-direction:column; gap:12px; min-width:0}
+.chart{width:100%; min-width:0; position:relative}
+.chart svg{display:block; width:100%; height:auto; overflow:visible}
+.source{font-size:12.5px; color:var(--ink3); line-height:1.5; border-top:1px solid var(--rule); padding-top:10px}
+.narrative{display:flex; flex-direction:column; gap:12px}
+.narrative p{font-weight:300; font-size:15.5px}
+.panels{display:grid; grid-template-columns:1fr 1fr; gap:26px 36px}
+.panel{min-width:0; display:flex; flex-direction:column; gap:4px}
+.panel h3{margin:0; font-size:15px; font-weight:600; color:var(--ink)}
+.panel h3 span{font-weight:400; color:var(--ink3)}
+.panel p{font-size:14px; color:var(--ink2); font-weight:300}
+.key{display:flex; flex-wrap:wrap; gap:8px 20px; font-size:13px; color:var(--ink2); align-items:center}
+.key i{display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:7px; vertical-align:-1px; border:1px solid}
+.key .hint{color:var(--ink3)}
+table{border-collapse:collapse; width:100%; font-size:13px; font-variant-numeric:tabular-nums}
+th,td{text-align:left; padding:7px 8px; border-bottom:1px solid var(--rule); vertical-align:top}
+th{font-weight:600; color:var(--ink2); font-size:12px; position:sticky; top:0; background:var(--panel)}
+td a{color:var(--ink); text-decoration-color:var(--rule); text-underline-offset:2px}
+.tablebox{overflow:auto; max-height:540px}
+details summary{cursor:pointer; font-weight:500; color:var(--ink)}
+details summary:focus-visible, a:focus-visible{outline:2px solid var(--focus); outline-offset:3px}
+details[open] summary{margin-bottom:14px}
+.chip{display:inline-flex; align-items:center; gap:6px; font-size:12px; white-space:nowrap; color:var(--ink2)}
+.chip i{width:9px; height:9px; border-radius:50%; border:1px solid; display:inline-block}
+/* tooltip */
+.tip{position:fixed; z-index:20; width:min(310px, calc(100vw - 24px)); background:var(--tip-bg); color:var(--ink); border:1px solid var(--rule); border-radius:4px; box-shadow:var(--tip-shadow); padding:12px 14px 12px; pointer-events:none; opacity:0; transform:translateY(4px); transition:opacity .12s, transform .12s; font-size:13px; line-height:1.45}
+.tip.on{opacity:1; transform:none}
+.tip .imp{display:flex; align-items:center; gap:7px; font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; font-weight:600; color:var(--ink2)}
+.tip .imp i{width:10px; height:10px; border-radius:50%; border:1px solid; display:inline-block}
+.tip .eff{display:flex; flex-direction:column; gap:0; margin-top:6px}
+.tip .eff b{font-size:26px; line-height:1.15; font-weight:500; letter-spacing:-.01em; font-variant-numeric:tabular-nums}
+.tip .eff span{color:var(--ink2); font-size:13px}
+.tip .sig{color:var(--ink3); font-size:12px; margin-top:1px}
+.tip .arm{margin-top:8px; color:var(--ink2)}
+.tip .paper{margin-top:10px; padding-top:9px; border-top:1px solid var(--rule)}
+.tip .paper .t{font-weight:500; color:var(--ink)}
+.tip .paper .a{color:var(--ink3); font-size:12.5px; margin-top:2px}
+@media (max-width:640px){
+  .panels{grid-template-columns:1fr}
+    .wrap{padding-inline:16px; gap:52px}
+  .figure{padding:16px 14px 14px}
+}
+@media (prefers-reduced-motion: reduce){ .tip{transition:none} }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Caribou evidence review</div>
+  <h1>Digital support changes how small businesses operate more often than it raises their sales</h1>
+  <p class="lede">Caribou's evidence map brings together <b id="n-papers">30</b> impact evaluations of digital and data-first support for micro and small businesses, updated in October 2026. Each circle in the charts below is one result: one outcome for one program variant, <b id="n-results">125</b> results in all.</p>
+  <p class="lede">A result shows a positive impact when the estimate is above zero and statistically significant at the 10 percent level or better, and a negative impact when it is below zero and significant. All other results show no impact, meaning the study could not distinguish the effect from zero.</p>
+  <div class="key" aria-label="Key">
+    <span><i style="background:var(--neg);border-color:var(--neg-line)"></i>Negative impact</span>
+    <span><i style="background:var(--nil);border-color:var(--nil-line)"></i>No impact</span>
+    <span><i style="background:var(--pos);border-color:var(--pos-line)"></i>Positive impact</span>
+    <span class="hint">Hover over or tap a circle to see the study and its effect size.</span>
+  </div>
+</header>
+
+<section id="by-type">
+  <h2 class="title">Training and mentoring account for most of the evidence, and most of their sales and profit results <span class="z">show no impact</span></h2>
+  <p class="sub">Results for business practices, sales and profits, by type of support. Each circle is one result.</p>
+  <div class="figure">
+    <div class="panels" id="chart-type"></div>
+    <div class="source">Source: Caribou evidence map of digital and data-first support for micro and small businesses, updated October 2026. Types of support as grouped in the evidence map.</div>
+  </div>
+  <div class="narrative">
+    <p id="narr-type">Most studies test training and mentoring delivered through phones, apps or video calls. These programs improve business practices in under half of their results, and raise sales or profits in about a quarter. Data tools, platforms and digital finance together account for nine studies and 12 sales and profit results, too few to support firm conclusions.</p>
+  </div>
+</section>
+
+<section id="by-delivery">
+  <h2 class="title"><span class="p">Human mentoring</span> raises sales or profits far more often than <span class="z">remote training on its own</span></h2>
+  <p class="sub">Sales and profit results only, grouped by how support reached the business. Each circle is one result.</p>
+  <div class="figure">
+    <div class="chart" id="chart-delivery"></div>
+    <div class="source">Source: Caribou evidence map, updated October 2026. Delivery groups assigned by Caribou.</div>
+  </div>
+  <div class="narrative">
+    <p>None of the 20 sales and profit results for remote training without a mentor shows a positive impact. Support that includes a person, whether a volunteer mentor, a consultant or an outsourced specialist, raised sales or profits in 11 of 24 results. Three of the mentoring studies draw on one sample of 930 Ugandan businesses, and three arms of a Nigerian study (consulting, insourcing and outsourcing) are not digital; without those three arms, the share is 8 of 18.</p>
+    <p>The AI mentor results come from a single study in Kenya, where businesses that were already performing well gained and weaker businesses lost. Bundled programs and stand-alone tools or finance fall between the two groups, with positive impacts in five of 11 and five of 12 results.</p>
+  </div>
+</section>
+
+<section id="by-size">
+  <h2 class="title">About half of the estimates for sales and profits <span class="z">fall within 10 percent of zero</span>, and a few programs show <span class="p">gains above 20 percent</span></h2>
+  <p class="sub">Estimated effect compared with the control group. Color shows whether the result was a <span class="n">negative impact</span>, <span class="z">no impact</span> or a <span class="p">positive impact</span>. Results without a reported estimate are left out.</p>
+  <div class="figure">
+    <div class="chart" id="chart-size"></div>
+    <div class="source">Source: Caribou evidence map, updated October 2026. Practices in standard deviations; sales and profits in percent difference to control. Values beyond the axis are drawn at the edge with their value.</div>
+  </div>
+  <div class="narrative">
+    <p>Of 65 sales and profit estimates, 35 lie within 10 percent of zero. Results that show no impact are not always small: two mentoring arms in Uganda raised sales by more than 20 percent on paper, but the estimates were too imprecise to rule out zero. Larger samples and longer follow-up would settle more of these cases.</p>
+  </div>
+</section>
+
+
+
+<section id="table">
+  <h2 class="plain">The table lists every result behind the charts</h2>
+  <details>
+    <summary>Show all <span id="n-results-2">125</span> results</summary>
+    <div class="figure" style="padding:0"><div class="tablebox"><table id="results-table"><thead><tr><th>Study</th><th>Program variant</th><th>Outcome</th><th>Impact</th><th>Effect size</th><th>Delivery group</th></tr></thead><tbody></tbody></table></div></div>
+  </details>
+</section>
+</div>
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+const DATA = __DATA__;
+const NS = "http://www.w3.org/2000/svg";
+const ZONES = ["negative","none","positive"];
+const ZLABEL = {negative:"Negative impact", none:"No impact", positive:"Positive impact"};
+const ZVAR = {negative:"neg", none:"nil", positive:"pos"};
+const OUTS = ["Knowledge and capabilities","Business practices","Sales or revenue","Profits","Other outcomes"];
+const OLOWER = {"Knowledge and capabilities":"knowledge and skills","Business practices":"business practices","Sales or revenue":"sales or revenue","Profits":"profits","Other outcomes":"other outcomes"};
+function el(tag, attrs, parent){ const e=document.createElementNS(NS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); if(parent) parent.appendChild(e); return e; }
+function txt(parent, x, y, s, cls){ const t=el("text",{x,y,class:cls||""},parent); t.textContent=s; return t; }
+function rng(seed){ let s=seed>>>0; return ()=>{ s=(s*1664525+1013904223)>>>0; return s/4294967296; }; }
+function esc(s){ return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+const isPct = o => o==="Sales or revenue"||o==="Profits";
+const pctVal = e => Math.abs(e)>3 ? e/100 : e;
+function effText(r){
+  if(r.e===null) return null;
+  if(isPct(r.o)){ const v=pctVal(r.e)*100; return (v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(Math.abs(v)<10?1:0)+"%"; }
+  if(r.o==="Business practices"||r.o==="Knowledge and capabilities") return (r.e>0?"+":r.e<0?"−":"")+Math.abs(r.e).toFixed(2)+" SD";
+  return (r.e>0?"+":r.e<0?"−":"")+(+Math.abs(r.e).toFixed(3));
+}
+function effUnit(r){
+  if(isPct(r.o)) return "Change in "+OLOWER[r.o]+" compared with the control group";
+  if(r.o==="Business practices"||r.o==="Knowledge and capabilities") return "Change in "+OLOWER[r.o]+", in standard deviations";
+  return (r.u||"other outcome");
+}
+function sigText(r){
+  const s=(r.s||"").trim();
+  if(r.r==="none") return "Not statistically significant";
+  if(s==="***") return "Statistically significant, p<0.01";
+  if(s==="**") return "Statistically significant, p<0.05";
+  if(s==="*") return "Statistically significant, p<0.10";
+  return "Statistically significant";
+}
+// ---- tooltip
+const TIP=document.getElementById("tip"); let tipFor=null;
+function showTip(r, target){
+  const eff=effText(r);
+  const effHtml = eff ? `<div class="eff"><b>${eff}</b><span>${esc(effUnit(r))}</span></div>`
+    : `<div class="eff"><span>Effect on ${esc(OLOWER[r.o])}${r.dir?", "+esc(r.dir):""}; size not reported</span></div>`;
+  const title = r.t ? `<div class="t">${esc(r.t)}</div>` : `<div class="t">${esc(r.ty)}</div>`;
+  TIP.innerHTML = `<div class="imp"><i style="background:var(--${ZVAR[r.r]});border-color:var(--${ZVAR[r.r]}-line)"></i>${ZLABEL[r.r]}</div>${effHtml}<div class="sig">${sigText(r)}</div>`+
+    (r.a?`<div class="arm">${esc(r.a)}</div>`:"")+
+    `<div class="paper">${title}<div class="a">${esc(r.au)} (${esc(r.y)}), ${esc(r.c)}</div></div>`;
+  const b=target.getBoundingClientRect(); const tw=TIP.offsetWidth, th=TIP.offsetHeight, vw=innerWidth, vh=innerHeight;
+  let x=b.left+b.width/2-tw/2; x=Math.max(12, Math.min(x, vw-tw-12));
+  let y=b.top-th-10; if(y<12) y=b.bottom+10; if(y+th>vh-12) y=Math.max(12, vh-th-12);
+  TIP.style.left=x+"px"; TIP.style.top=y+"px"; TIP.classList.add("on"); TIP.setAttribute("aria-hidden","false"); tipFor=target;
+}
+function hideTip(){ TIP.classList.remove("on"); TIP.setAttribute("aria-hidden","true"); tipFor=null; }
+document.addEventListener("pointerdown", e=>{ if(!e.target.closest || !e.target.closest(".dot")) hideTip(); });
+addEventListener("scroll", hideTip, {passive:true});
+
+function dot(svg, x, y, r, item){
+  const g=el("g",{class:"dot"},svg);
+  el("circle",{cx:x.toFixed(1), cy:y.toFixed(1), r:r+3.5, fill:"transparent"}, g);
+  el("circle",{cx:x.toFixed(1), cy:y.toFixed(1), r, class:"mark", fill:`var(--${ZVAR[item.r]})`, stroke:`var(--${ZVAR[item.r]}-line)`, "stroke-width":1.1}, g);
+  g.addEventListener("pointerenter", e=>{ if(e.pointerType!=="touch") showTip(item,g); });
+  g.addEventListener("pointerleave", e=>{ if(e.pointerType!=="touch") hideTip(); });
+  g.addEventListener("pointerdown", e=>{ if(e.pointerType==="touch"){ e.stopPropagation(); tipFor===g?hideTip():showTip(item,g); } });
+}
+function clusterOffsets(n, d, maxTier){
+  const c=[]; const vy=d*0.87;
+  for(let row=-maxTier; row<=maxTier; row++) for(let col=-30; col<=30; col++){
+    const x=(col+(Math.abs(row)%2?0.5:0))*d, y=row*vy; c.push([x,y,Math.hypot(x*0.55,y*1.9)]);
+  }
+  c.sort((a,b)=>a[2]-b[2]); return c.slice(0,n);
+}
+// Categorical beeswarm: rows of {label, items}
+function renderCat(host, rows, opt={}){
+  host.innerHTML="";
+  const W=Math.max(280, host.clientWidth); const narrow=W<520;
+  const r=narrow?4.6:5.6, d=2*r+2.2, padX=2;
+  const zw=(W-2*padX)/3; const zc=i=>padX+zw*(i+0.5);
+  const labelH=opt.small?17:20; let y=4; const svg=el("svg",{viewBox:`0 0 ${W} 10`, role:"img"},host);
+  if(opt.aria) svg.setAttribute("aria-label",opt.aria);
+  const rgen=rng(11);
+  rows.forEach(row=>{
+    const groups={negative:[],none:[],positive:[]}; row.items.forEach(i=>groups[i.r].push(i));
+    let tiers=narrow?2:1; const cap=t=>Math.floor((zw-8)/d)*(2*t+1);
+    const big=Math.max(...ZONES.map(z=>groups[z].length)); while(cap(tiers)<big && tiers<5) tiers++;
+    const offs={}; let ext=0;
+    ZONES.forEach(z=>{ offs[z]=clusterOffsets(groups[z].length,d,tiers); offs[z].forEach(o=>ext=Math.max(ext,Math.abs(o[1]))); });
+    const half=Math.max(ext+r+3, r+5);
+    const lbl=txt(svg, padX, y+13, row.label, opt.small?"rl rl-s":"rl"); let extra=0;
+    const tt=txt(svg, W-padX, y+13, `${groups.positive.length} of ${row.items.length} positive`, "rc"); tt.setAttribute("text-anchor","end");
+    if(lbl.getComputedTextLength()+tt.getComputedTextLength()+14 > W-2*padX){ tt.setAttribute("x",padX); tt.setAttribute("text-anchor","start"); tt.setAttribute("y",y+30); extra=16; }
+    const ly=y+labelH+extra+half;
+    el("line",{x1:padX,x2:W-padX,y1:ly,y2:ly,class:"axis"},svg);
+    ZONES.forEach((z,i)=>{ groups[z].forEach((it,k)=>{ const o=offs[z][k]; const jx=(rgen()-0.5)*2, jy=(rgen()-0.5)*2; dot(svg, zc(i)+o[0]+jx, ly+o[1]+jy, r, it); }); });
+    y=ly+half+(opt.small?10:14);
+  });
+  y+=4;
+  ZONES.forEach((z,i)=>{ const s=(i===0?"← ":"")+ZLABEL[z]+(i===2?" →":""); const t=txt(svg, zc(i), y+12, s, "zl zl-"+z); t.setAttribute("text-anchor","middle"); });
+  y+=22; svg.setAttribute("viewBox",`0 0 ${W} ${y}`); svg.setAttribute("height",y);
+}
+// Effect-size strip
+function renderScale(host, rows){
+  host.innerHTML=""; const W=Math.max(280, host.clientWidth); const narrow=W<520;
+  const r=narrow?4.4:5.4, d=2*r+1.6, padL=narrow?6:10, padR=narrow?34:46;
+  const svg=el("svg",{viewBox:`0 0 ${W} 10`, role:"img","aria-label":"Effect sizes for practices, sales and profits"},host); let y=4;
+  rows.forEach(row=>{
+    const [lo,hi]=row.domain; const sx=v=>padL+(Math.min(Math.max(v,lo),hi)-lo)/(hi-lo)*(W-padL-padR);
+    txt(svg,padL,y+13,row.label,"rl"); const u=txt(svg,W,y+13,row.unit,"rc"); u.setAttribute("text-anchor","end");
+    const items=row.items.slice().sort((a,b)=>a.v-b.v); const placed=[];
+    items.forEach(it=>{ const x=sx(it.v); let k=0, yy=0;
+      for(;;){ yy=(k%2?1:-1)*Math.ceil(k/2)*d*0.92; if(!placed.some(p=>Math.hypot(p[0]-x,p[1]-yy)<d)) break; k++; }
+      placed.push([x,yy,it]); });
+    const ext=Math.max(r, ...placed.map(p=>Math.abs(p[1])))+r+4; const ly=y+24+ext;
+    row.ticks.forEach(t=>{ const x=sx(t); el("line",{x1:x,x2:x,y1:ly-ext+2,y2:ly+ext-2,class:t===0?"zero":"grid"},svg);
+      const tl=txt(svg,x,ly+ext+13,row.fmt(t),"tk"); tl.setAttribute("text-anchor","middle"); });
+    el("line",{x1:padL,x2:W-padR,y1:ly,y2:ly,class:"axis"},svg);
+    placed.forEach(([x,yy,it])=>{ dot(svg,x,ly+yy,r,it);
+      if(it.v>hi||it.v<lo){ const tl=txt(svg, it.v>hi? x+r+4 : x-r-4, ly+yy+4, row.fmt(it.v),"ov"); tl.setAttribute("text-anchor", it.v>hi?"start":"end"); } });
+    y=ly+ext+32;
+  });
+  svg.setAttribute("viewBox",`0 0 ${W} ${y}`); svg.setAttribute("height",y);
+}
+
+// ---- content
+document.getElementById("n-papers").textContent=new Set(DATA.map(r=>r.k)).size;
+document.getElementById("n-results").textContent=DATA.length;
+document.getElementById("n-results-2").textContent=DATA.length;
+const OLABEL={"Business practices":"Business practices","Sales or revenue":"Sales or revenue","Profits":"Profits"};
+const PILLARS=[["Digital training and mentoring","Practices improve in under half of results; sales and profits rise in about a quarter."],
+ ["Bundled support","Bundles improve practices in four of five results, with mixed effects on sales and profits."],
+ ["Data, platforms and business tools","Analytics tools raised sales in two studies, while a supply-chain app reduced sales in one."],
+ ["Digital finance","Mobile money and digital payments improve practices; evidence on sales and profits is thin."]];
+const DELIV=["Remote training without a human mentor","AI mentor","Human mentoring, advice or services","Training bundled with tools, platforms or finance","Tools, platforms or finance on their own"];
+const DLABEL={"Remote training without a human mentor":"Remote training without a mentor (SMS, WhatsApp, apps, Zoom)","AI mentor":"AI mentor (one study)","Human mentoring, advice or services":"Human mentoring, advice or services","Training bundled with tools, platforms or finance":"Training bundled with tools, platforms or finance","Tools, platforms or finance on their own":"Tools, platforms or finance on their own"};
+
+function drawAll(){
+  hideTip();
+  const B=document.getElementById("chart-type"); B.innerHTML="";
+  PILLARS.forEach(([p,s])=>{ const items=DATA.filter(r=>r.pl===p); const n=new Set(items.map(r=>r.k)).size;
+    const div=document.createElement("div"); div.className="panel";
+    div.innerHTML=`<h3>${p} <span>(${n} ${n===1?"study":"studies"})</span></h3><p>${s}</p><div class="chart"></div>`; B.appendChild(div);
+    renderCat(div.querySelector(".chart"), ["Business practices","Sales or revenue","Profits"].map(o=>({label:OLABEL[o], items:items.filter(r=>r.o===o)})), {small:true, aria:p}); });
+  renderCat(document.getElementById("chart-delivery"), DELIV.map(d=>({label:DLABEL[d], items:DATA.filter(r=>r.d===d && isPct(r.o))})), {aria:"Sales and profit results by delivery group"});
+  const est=o=>DATA.filter(r=>r.o===o && r.e!==null).map(r=>Object.assign({},r,{v:isPct(o)?pctVal(r.e):r.e}));
+  const fp=v=>(v>0?"+":v<0?"−":"")+Math.round(Math.abs(v)*100)+"%";
+  const fs=v=>(v>0?"+":v<0?"−":"")+(+Math.abs(v).toFixed(2));
+  renderScale(document.getElementById("chart-size"),[
+    {label:"Business practices", unit:"standard deviations", domain:[-0.2,0.8], ticks:[-0.2,0,0.2,0.4,0.6,0.8], fmt:fs, items:est("Business practices")},
+    {label:"Sales or revenue", unit:"percent", domain:[-0.3,0.6], ticks:[-0.2,0,0.2,0.4,0.6], fmt:fp, items:est("Sales or revenue")},
+    {label:"Profits", unit:"percent", domain:[-0.3,0.6], ticks:[-0.2,0,0.2,0.4,0.6], fmt:fp, items:est("Profits")}]);
+}
+
+
+const TB=document.querySelector("#results-table tbody");
+DATA.slice().sort((a,b)=>a.au.localeCompare(b.au)||a.y.localeCompare(b.y)||OUTS.indexOf(a.o)-OUTS.indexOf(b.o)).forEach(r=>{ const tr=document.createElement("tr");
+  const study = r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.au)} (${esc(r.y)})</a>` : `${esc(r.au)} (${esc(r.y)})`;
+  const eff = effText(r) || (r.dir ? r.dir+", size not reported" : "Not reported");
+  tr.innerHTML=`<td>${study}<br><span style="color:var(--ink3)">${esc(r.c)}</span></td><td>${esc(r.a)}</td><td>${esc(r.o==="Other outcomes"?(r.u||"Other"):r.o)}</td><td><span class="chip"><i style="background:var(--${ZVAR[r.r]});border-color:var(--${ZVAR[r.r]}-line)"></i>${ZLABEL[r.r]}</span></td><td>${esc(eff)}${r.s&&r.s!=="sig."?" "+esc(r.s):""}</td><td>${esc(r.d)}</td>`; TB.appendChild(tr); });
+
+drawAll(); let rt; addEventListener("resize",()=>{ clearTimeout(rt); rt=setTimeout(drawAll,120); });
+</script>
+<style>
+.chart text{font-family:var(--sans); fill:var(--ink)}
+.chart .rl{font-size:14.5px; font-weight:400}
+.chart .rl-s{font-size:13px}
+.chart .rc{font-size:12px; fill:var(--ink3); font-variant-numeric:tabular-nums}
+.chart .axis{stroke:var(--rule); stroke-width:1}
+.chart .grid{stroke:var(--rule); stroke-width:1; stroke-dasharray:2 3}
+.chart .zero{stroke:var(--ink3); stroke-width:1}
+.chart .tk{font-size:11.5px; fill:var(--ink3); font-variant-numeric:tabular-nums}
+.chart .ov{font-size:11px; fill:var(--ink2)}
+.chart .zl{font-size:13.5px; font-weight:500}
+.chart .zl-negative{fill:var(--neg-text)} .chart .zl-none{fill:var(--nil-text)} .chart .zl-positive{fill:var(--pos-text)}
+.chart .dot{cursor:default}
+.chart .dot .mark{transition:stroke-width .12s}
+.chart .dot:hover .mark{stroke-width:2.4}
+@media (max-width:520px){ .chart .rl{font-size:13.5px} .chart .zl{font-size:12px} }
+</style>
