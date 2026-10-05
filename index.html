@@ -71,6 +71,11 @@ details summary:focus-visible, a:focus-visible{outline:2px solid var(--focus); o
 details[open] summary{margin-bottom:14px}
 .chip{display:inline-flex; align-items:center; gap:6px; font-size:12px; white-space:nowrap; color:var(--ink2)}
 .chip i{width:9px; height:9px; border-radius:50%; border:1px solid; display:inline-block}
+.points{display:grid; grid-template-columns:1fr 1fr; gap:24px 40px; margin:0; padding:0; list-style:none}
+.points li{border-top:1px solid var(--rule); padding-top:14px; display:flex; flex-direction:column; gap:6px; min-width:0}
+.points h3{margin:0; font-size:15.5px; font-weight:600; color:var(--ink)}
+.points p{font-size:15px; font-weight:300}
+@media (max-width:640px){ .points{grid-template-columns:1fr} }
 /* tooltip */
 .tip{position:fixed; z-index:20; width:min(310px, calc(100vw - 24px)); background:var(--tip-bg); color:var(--ink); border:1px solid var(--rule); border-radius:4px; box-shadow:var(--tip-shadow); padding:12px 14px 12px; pointer-events:none; opacity:0; transform:translateY(4px); transition:opacity .12s, transform .12s; font-size:13px; line-height:1.45}
 .tip.on{opacity:1; transform:none}
@@ -146,6 +151,26 @@ details[open] summary{margin-bottom:14px}
 </section>
 
 
+
+<section id="lessons">
+  <h2 class="title">The results point to four lessons for program design</h2>
+  <ul class="points">
+    <li><h3>Pair digital delivery with a person</h3><p>None of the 20 sales and profit results for remote training without a mentor shows a positive impact, against 11 of 24 for programs that include a mentor, adviser or specialist. Digital channels lower the cost of reaching businesses; contact with a person appears to be what changes results.</p></li>
+    <li><h3>Treat better practices as an early sign of impact</h3><p>Business practices improved in 17 of 31 results, while sales rose in 12 of 37 and profits in 11 of 36. Programs that track only practices, such as record keeping or marketing, are likely to overstate their effect on business performance.</p></li>
+    <li><h3>Look at who benefits as well as the average</h3><p>In Kenya, an AI mentor raised sales and profits for businesses that were already doing well and lowered them for weaker ones. In Brazil, chatbot-based training did the most harm to entrepreneurs with low digital literacy. Results for such groups belong in every evaluation report.</p></li>
+    <li><h3>Plan evaluations large enough to detect realistic gains</h3><p>About half of the sales and profit estimates lie within 10 percent of zero, and 16 of the 29 studies that report a sample size cover fewer than 1,000 businesses. Sales and profits vary widely between small businesses, so modest gains need larger samples or repeated measurement to show up.</p></li>
+  </ul>
+</section>
+
+<section id="gaps">
+  <h2 class="title">The evidence leaves gaps on resilience, AI, geography and gender</h2>
+  <ul class="points">
+    <li><h3>Resilience and risk</h3><p>Only one study reports whether businesses survived. None measures how businesses cope with climate shocks, cyber attacks or online fraud.</p></li>
+    <li><h3>Artificial intelligence</h3><p>One study tests a generative AI tool: the AI mentor in Kenya. Two more test chatbot-based training in Brazil and AI-enabled training on an e-commerce platform in China. A registered trial in Pakistan that compares training on ChatGPT with training on Google search has not yet reported.</p></li>
+    <li><h3>Geography</h3><p>Half of the 30 studies come from Africa, and 11 from East Africa alone, with Uganda contributing five. Asia accounts for five studies, Latin America for seven, and the Middle East and North Africa for one, in Jordan.</p></li>
+    <li><h3>Women and other groups</h3><p>Eight studies work only with women, and six do not report the share of women in their sample. Only one study reports results separately for women and men (Batista et al., Mozambique).</p></li>
+  </ul>
+</section>
 
 <section id="table">
   <h2 class="plain">The table lists every result behind the charts</h2>
